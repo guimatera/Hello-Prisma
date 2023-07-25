@@ -2,16 +2,20 @@
   "name": "hello-prisma",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node script.ts"
+    "start": "npx ts-node src/index.ts",
+    "keys": "npx ts-node src/config/generateRSAKeyPair.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.4",
+    "@types/passport": "^1.0.12",
     "node-dev": "^8.0.0",
     "prisma": "^5.0.0",
     "ts-node": "^10.9.1",
@@ -19,6 +23,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.1",
