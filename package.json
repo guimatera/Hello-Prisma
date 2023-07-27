@@ -9,7 +9,8 @@
     "keys": "npx ts-node src/config/generateRSAKeyPair.ts",
     "seed": "ts-node src/database/seeders/seed.ts",
     "migrate-first": "npx prisma migrate dev",
-    "migrate-reset": "npx prisma migrate reset"
+    "migrate-reset": "npx prisma migrate reset",
+    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/index.ts\" -e ts"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "@types/node": "^20.4.4",
     "@types/passport": "^1.0.12",
     "node-dev": "^8.0.0",
+    "nodemon": "^3.0.1",
     "prisma": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
