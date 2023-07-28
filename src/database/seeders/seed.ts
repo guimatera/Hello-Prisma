@@ -3,7 +3,6 @@ import userSeed from "./userSeed";
 import postSeed from "./postSeed";
 import profileSeed from "./profileSeed";
 import categorySeed from "./categorySeed";
-import postCategorySeed from "./postCategoriesSeed";
 import followSeed from "./followSeed";
 
 const prisma = new PrismaClient();
@@ -13,10 +12,7 @@ async function main() {
     postSeed();
     profileSeed();
     followSeed();
-    categorySeed();
-  }).then(() => {
-    postCategorySeed();
-  });
+  })
 }
 
 main()

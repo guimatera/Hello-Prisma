@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
+import postCategorySeed from "./postCategoriesSeed";
 
 const prisma = new PrismaClient();
 
@@ -11,6 +12,7 @@ async function categorySeed() {
           }
         })
     }
+    postCategorySeed();
 }
 
 export default categorySeed;
