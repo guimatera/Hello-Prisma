@@ -10,7 +10,8 @@
     "seed": "ts-node src/seeders/seed.ts",
     "migrate-init": "npx prisma migrate dev",
     "migrate-reset": "npx prisma migrate reset",
-    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/index.ts\" -e ts"
+    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/index.ts\" -e ts",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "@types/passport": "^1.0.12",
     "node-dev": "^8.0.0",
     "nodemon": "^3.0.1",
+    "prettier": "^3.0.0",
     "prisma": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"

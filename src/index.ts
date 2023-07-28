@@ -13,15 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(router);
 
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server is running");
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server is running');
 });
 
-app.listen(port, () =>
-  console.log(`Server ready at: http://localhost:${port}`),
-);
-
-
-
-
+app.listen(port, () => console.log(`Server ready at: http://localhost:${port}`));
