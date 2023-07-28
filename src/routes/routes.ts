@@ -1,5 +1,7 @@
 import Express from "express";
 
+import Validator from "../config/validator";
+
 import userController from "../controllers/userController";
 import categoryController from "../controllers/categoryController";
 import postController from "../controllers/postController";
@@ -7,11 +9,11 @@ import postController from "../controllers/postController";
 const router = Express.Router();
 
 // User Routes
-router.post("/User", userController.Create);
+router.post("/User", Validator.userValidation("Create"), userController.Create);
 router.post("/Follow/:followerId", userController.Follow);
 router.get("/User", userController.findOne);
 router.get("/Users", userController.findAll);
-router.put("/User/:userId", userController.Update);
+router.put("/User/:userId", Validator.userValidation("Update"), userController.Update);
 router.delete("/User", userController.Destroy);
 router.delete("/Unfollow/:followerId", userController.Unfollow);
 

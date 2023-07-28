@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { profile } from "console";
+import { validationResult } from "express-validator";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 class UserController {
     async Create(req: Request, res: Response) {
         try {
+            validationResult(req).throw();
             const { Name, Email } = req.body;
 
             const User = await prisma.user.create({
@@ -25,7 +26,7 @@ class UserController {
             return res.status(200).json(User);
         }
         catch (error) {
-            return res.status(500).json(error + "!");
+            return res.status(500).json(error);
         }
     }
 
@@ -76,6 +77,7 @@ class UserController {
 
     async Update(req: Request, res: Response) {
         try {
+            validationResult(req).throw();
             const { Name, Email } = req.body;
             const { userId } = req.params;
 
@@ -95,12 +97,13 @@ class UserController {
             if (User != null) {
                 return res.status(200).json(User);
             }
+
             else {
                 return res.status(404).json("User not found.");
             }
         }
         catch (error) {
-            return res.status(500).json(error + "!");
+            return res.status(500).json(error);
         }
     }
 
