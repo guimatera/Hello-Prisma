@@ -61,11 +61,78 @@ const userValidation = (method: any) => {
       ];
     }
     default: {
-      return [body().withMessage('Error')];
+      return [
+        body()
+        .withMessage('Error')
+      ];
     }
   }
 };
 
+const postValidation =  (method: String) => {
+  switch(method) {
+    case "Create": {
+      return [
+        body("Title")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.'),
+        body("Content")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.'),
+        body("Published")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.')
+          .bail()
+          .isBoolean()
+          .withMessage('This field must be boolean.'),
+        body("Type")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.')
+          .bail()
+          .isAlpha('pt-BR', { ignore: ' -' })
+          .withMessage('This field only accept letters.')
+      ];
+    }
+    case "Update": {
+      return [
+        body("Title")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.'),
+        body("Content")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.'),
+        body("Published")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.')
+          .bail()
+          .isBoolean()
+          .withMessage('This field must be boolean.'),
+          body("Type")
+          .not()
+          .isEmpty()
+          .withMessage('This field must not be empty.')
+          .bail()
+          .isAlpha('pt-BR', { ignore: ' -' })
+          .withMessage('This field only accept letters.')
+      ];
+    }
+    default: {
+      return [
+        body()
+        .withMessage('Error')
+      ];
+    }
+  }
+}
+
 export default {
-  userValidation
+  userValidation,
+  postValidation
 };

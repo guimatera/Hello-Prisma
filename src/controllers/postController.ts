@@ -1,11 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 const prisma = new PrismaClient();
 
 class PostController {
   async Create(req: Request, res: Response) {
     try {
+      validationResult(req).throw();
       const { Title, Content, Published, userId, categoryId, Type } = req.body;
 
       const Post = await prisma.post.create({
@@ -36,7 +38,7 @@ class PostController {
 
       return res.status(200).json(Post);
     } catch (error) {
-      return res.status(500).json(error + '!');
+      return res.status(500).json(error);
     }
   }
 
@@ -85,6 +87,7 @@ class PostController {
 
   async Update(req: Request, res: Response) {
     try {
+      validationResult(req).throw();
       const { Title, Content, categoryId } = req.body;
       const { postId } = req.params;
 
@@ -121,7 +124,7 @@ class PostController {
         return res.status(404).json('Post not found.');
       }
     } catch (error) {
-      return res.status(500).json(error + '!');
+      return res.status(500).json(error);
     }
   }
 
