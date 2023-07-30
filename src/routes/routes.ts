@@ -25,12 +25,10 @@ router.put('/Post/:postId', Validator.postValidation('Update'), postController.U
 router.delete('/Post', postController.Destroy);
 
 // Category Routes
-router.post('/Category', categoryController.Create);
+router.post('/Category', Validator.categoryValidation('Create'), categoryController.Create);
 router.get('/Category', categoryController.findOne);
 router.get('/Categories', categoryController.findAll);
-router.put('/Category/:categoryId', categoryController.Update);
+router.put('/Category/:categoryId', Validator.categoryValidation('Create'), categoryController.Update);
 router.delete('/Category', categoryController.Destroy);
-
-
 
 export default router;

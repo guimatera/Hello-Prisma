@@ -8,15 +8,13 @@ const userValidation = (method: any) => {
     case 'Create': {
       return [
         body('Name')
-          .not()
-          .isEmpty()
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isAlpha('pt-BR', { ignore: ' -.' })
           .withMessage('This field only accept letters.'),
         body('Email')
-          .not()
-          .isEmpty()
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isEmail()
@@ -35,15 +33,13 @@ const userValidation = (method: any) => {
     case 'Update': {
       return [
         body('Name')
-          .not()
-          .isEmpty()
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isAlpha('pt-BR', { ignore: ' -.' })
           .withMessage('This field only accept letters.'),
         body('Email')
-          .not()
-          .isEmpty()
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isEmail()
@@ -61,62 +57,43 @@ const userValidation = (method: any) => {
       ];
     }
     default: {
-      return [
-        body()
-        .withMessage('Error')
-      ];
+      return [body().withMessage('Error')];
     }
   }
 };
 
-const postValidation =  (method: String) => {
-  switch(method) {
-    case "Create": {
+const postValidation = (method: String) => {
+  switch (method) {
+    case 'Create': {
       return [
-        body("Title")
-          .not()
-          .isEmpty()
-          .withMessage('This field must not be empty.'),
-        body("Content")
-          .not()
-          .isEmpty()
-          .withMessage('This field must not be empty.'),
-        body("Published")
-          .not()
-          .isEmpty()
+        body('Title').notEmpty().withMessage('This field must not be empty.'),
+        body('Content').notEmpty().withMessage('This field must not be empty.'),
+        body('Published')
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isBoolean()
           .withMessage('This field must be boolean.'),
-        body("Type")
-          .not()
-          .isEmpty()
+        body('Type')
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isAlpha('pt-BR', { ignore: ' -' })
           .withMessage('This field only accept letters.')
       ];
     }
-    case "Update": {
+    case 'Update': {
       return [
-        body("Title")
-          .not()
-          .isEmpty()
-          .withMessage('This field must not be empty.'),
-        body("Content")
-          .not()
-          .isEmpty()
-          .withMessage('This field must not be empty.'),
-        body("Published")
-          .not()
-          .isEmpty()
+        body('Title').notEmpty().withMessage('This field must not be empty.'),
+        body('Content').notEmpty().withMessage('This field must not be empty.'),
+        body('Published')
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isBoolean()
           .withMessage('This field must be boolean.'),
-          body("Type")
-          .not()
-          .isEmpty()
+        body('Type')
+          .notEmpty()
           .withMessage('This field must not be empty.')
           .bail()
           .isAlpha('pt-BR', { ignore: ' -' })
@@ -124,15 +101,41 @@ const postValidation =  (method: String) => {
       ];
     }
     default: {
-      return [
-        body()
-        .withMessage('Error')
-      ];
+      return [body().withMessage('Error')];
     }
   }
-}
+};
+
+const categoryValidation = (method: string) => {
+  switch (method) {
+    case 'Create': {
+      return [
+        body('Name')
+          .notEmpty()
+          .withMessage('This field must not be empty.')
+          .bail()
+          .isAlpha('pt-BR', { ignore: ' -' })
+          .withMessage('This field only accept letters.')
+      ];
+    }
+    case 'Update': {
+      return [
+        body('Name')
+          .notEmpty()
+          .withMessage('This field must not be empty.')
+          .bail()
+          .isAlpha('pt-BR', { ignore: ' -' })
+          .withMessage('This field only accept letters.')
+      ];
+    }
+    default: {
+      return [body().withMessage('Error')];
+    }
+  }
+};
 
 export default {
   userValidation,
-  postValidation
+  postValidation,
+  categoryValidation
 };

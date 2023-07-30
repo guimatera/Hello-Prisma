@@ -1,11 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 const prisma = new PrismaClient();
 
 class categoryController {
   async Create(req: Request, res: Response) {
     try {
+      validationResult(req).throw();
       const { Name } = req.body;
 
       const Category = await prisma.category.create({
@@ -16,7 +18,7 @@ class categoryController {
 
       return res.status(200).json(Category);
     } catch (error) {
-      return res.status(500).json(error + '!');
+      return res.status(500).json(error);
     }
   }
 
@@ -56,6 +58,7 @@ class categoryController {
 
   async Update(req: Request, res: Response) {
     try {
+      validationResult(req).throw();
       const { Name } = req.body;
       const { categoryId } = req.params;
 
@@ -74,7 +77,7 @@ class categoryController {
         return res.status(404).json('Category not found.');
       }
     } catch (error) {
-      return res.status(500).json(error + '!');
+      return res.status(500).json(error);
     }
   }
 
