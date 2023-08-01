@@ -19,6 +19,7 @@ const userValidation = (method: any) => {
           .bail()
           .isEmail()
           .withMessage('This field must be in email format.')
+          .bail()
           .custom(async (value: string) => {
             const Email = await prisma.user.findFirst({
               where: {
@@ -27,7 +28,6 @@ const userValidation = (method: any) => {
             });
             if (Email) throw new Error('Email already taken.');
           })
-          .bail()
       ];
     }
     case 'Update': {
@@ -53,7 +53,6 @@ const userValidation = (method: any) => {
             });
             if (Email) throw new Error('Email already taken.');
           })
-          .bail()
       ];
     }
     default: {

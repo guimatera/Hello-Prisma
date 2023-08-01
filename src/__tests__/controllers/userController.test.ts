@@ -25,7 +25,60 @@ describe('Create User Tests', () => {
     expect(Response.statusCode).toBe(200);
 
     userId = Response.body.id;
+  });
+
+  it('HTTP Status 500 - Email already taken', async () => {
+    const Response = await request(app).post('/User').send(User);
+    expect(Response.statusCode).toBe(500);
+
     await request(app).delete(`/User/${userId}`);
+  });
+
+  it('HTTP Status 500 - Empty fields', async () => {
+    let User: User = {
+      Name: '',
+      Email: ''
+    };
+
+    const Response = await request(app).post('/User').send(User);
+    expect(Response.statusCode).toBe(500);
+    expect(Response.body.errors.length == 2).toBe(true);
+  });
+
+  it('HTTP Status 500 - Incorrect Email Format', async () => {
+    let User: User = {
+      Name: faker.person.firstName(),
+      Email: faker.person.firstName()
+    };
+
+    const Response = await request(app).post('/User').send(User);
+    expect(Response.statusCode).toBe(500);
+    expect(Response.body.errors.length == 1).toBe(true);
+  });
+
+  it('HTTP Status 500 - Only Letters in Name', async () => {
+    const symbols: string[] = [' ', '.', '-'];
+
+    symbols.forEach(async function (value) {
+      let User: User = {
+        Name: value + faker.string.alpha(5),
+        Email: faker.internet.email()
+      };
+
+      const Response = await request(app).post('/User').send(User);
+      expect(Response.statusCode).toBe(200);
+
+      await request(app).delete(`/User/${Response.body.id}`);
+    });
+
+    let User: User = {
+      Name: faker.string.sample(1) + faker.string.numeric(1),
+      Email: faker.internet.email()
+    };
+
+    const Response = await request(app).post('/User').send(User);
+    expect(Response.statusCode).toBe(500);
+    expect(Response.body.errors.length == 1).toBe(true);
   });
 });
 
@@ -145,3 +198,15 @@ describe('Delete One User Tests', () => {
   });
 });
 
+/*
+
+it("Should not find a User", async () => {
+  const nonExistentId = 10000;
+  const Response = await request(app).get(`/User/${nonExistentId}`);
+  expect(Response.statusCode).toBe(404);
+});
+
+it("Should not find a User", async () => {
+  const Response = await request(app).get(`/User/`);
+  expect(Response.statusCode).toBe(500);
+});*/
