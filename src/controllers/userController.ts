@@ -31,7 +31,7 @@ class UserController {
 
   async findOne(req: Request, res: Response) {
     try {
-      const { userId } = req.body;
+      const { userId } = req.params;
 
       const User = await prisma.user.findUnique({
         where: {
@@ -101,7 +101,8 @@ class UserController {
 
   async Destroy(req: Request, res: Response) {
     try {
-      const { userId } = req.body;
+      const { userId } = req.params;
+      
       const User = await prisma.user.delete({
         where: {
           id: Number(userId)

@@ -11,10 +11,10 @@ const router = Express.Router();
 // User Routes
 router.post('/User', Validator.userValidation('Create'), userController.Create);
 router.post('/Follow/:followerId', userController.Follow);
-router.get('/User', userController.findOne);
+router.get('/User/:userId', userController.findOne);
 router.get('/Users', userController.findAll);
 router.put('/User/:userId', Validator.userValidation('Update'), userController.Update);
-router.delete('/User', userController.Destroy);
+router.delete('/User/:userId', userController.Destroy);
 router.delete('/Unfollow/:followerId', userController.Unfollow);
 
 // Post Routes

@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
     "build": "tsc",
-    "start": "npx ts-node src/index.ts",
+    "start": "npx ts-node src/server.ts",
     "keys": "npx ts-node src/config/generateRSAKeyPair.ts",
     "seed": "ts-node src/seeders/seed.ts",
     "migrate-init": "npx prisma migrate dev",
     "migrate-reset": "npx prisma migrate reset",
-    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/index.ts\" -e ts",
+    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/server.ts\" -e ts",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "keywords": [],
