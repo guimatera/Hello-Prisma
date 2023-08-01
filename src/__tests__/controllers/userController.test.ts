@@ -1,14 +1,13 @@
-import request from "supertest";
-import app from "../../index";
-import { faker } from "@faker-js/faker";
+import request from 'supertest';
+import app from '../../index';
+import { faker } from '@faker-js/faker';
 
 interface User {
   Name: String;
   Email: String;
 }
 
-
-describe("Create User Tests", () => {
+describe('Create User Tests', () => {
   let userId: Number;
 
   let User: User = {
@@ -16,12 +15,12 @@ describe("Create User Tests", () => {
     Email: faker.internet.email()
   };
 
-  it("HTTP Status 200 - Working Fine", async () => {
-    const Response = await request(app).post("/User").send(User);
+  it('HTTP Status 200 - Working Fine', async () => {
+    const Response = await request(app).post('/User').send(User);
     expect(Response.body).toMatchObject({
       id: expect.any(Number),
       name: User.Name,
-      email: User.Email,
+      email: User.Email
     });
     expect(Response.statusCode).toBe(200);
 
@@ -30,36 +29,31 @@ describe("Create User Tests", () => {
   });
 });
 
-describe ("Find All Users Tests", () => {
-
-  it("HTTP Status 200 - Working Fine", async () => {
-
+describe('Find All Users Tests', () => {
+  it('HTTP Status 200 - Working Fine', async () => {
     let userIds: Number[] = [];
 
-    for(let i = 1; i <= 10; i++){
-       let User: User = {
+    for (let i = 1; i <= 10; i++) {
+      let User: User = {
         Name: faker.person.firstName(),
         Email: faker.internet.email()
       };
       let Res = await request(app).post(`/User`).send(User);
-      userIds[i-1] = Res.body.id;
+      userIds[i - 1] = Res.body.id;
     }
 
     const Response = await request(app).get(`/Users`);
     expect(Response.body.length).toBe(10);
     expect(Response.statusCode).toBe(200);
 
-    for(let i = 1; i <= 10; i++){
-      await request(app).delete(`/User/${userIds[i-1]}`);
+    for (let i = 1; i <= 10; i++) {
+      await request(app).delete(`/User/${userIds[i - 1]}`);
     }
   });
-
 });
 
-describe("Find One User Tests", () => {
-
-  it("HTTP Status 200 - Working Fine", async () => {
-
+describe('Find One User Tests', () => {
+  it('HTTP Status 200 - Working Fine', async () => {
     let userId: Number;
 
     let User: User = {
@@ -88,10 +82,8 @@ describe("Find One User Tests", () => {
   });
 });
 
-describe("Update One User Tests", () => {
-
-  it("HTTP Status 200 - Working Fine", async () => {
-
+describe('Update One User Tests', () => {
+  it('HTTP Status 200 - Working Fine', async () => {
     let userId: Number;
 
     let User: User = {
@@ -125,10 +117,8 @@ describe("Update One User Tests", () => {
   });
 });
 
-describe("Delete One User Tests", () => {
-
-  it("HTTP Status 200 - Working Fine", async () => {
-
+describe('Delete One User Tests', () => {
+  it('HTTP Status 200 - Working Fine', async () => {
     let userId: Number;
 
     let User: User = {
@@ -154,3 +144,4 @@ describe("Delete One User Tests", () => {
     expect(Response.statusCode).toBe(200);
   });
 });
+
