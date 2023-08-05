@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "jest",
+    "test": "npm run migrate-reset && jest",
     "build": "tsc",
     "start": "npx ts-node src/server.ts",
     "keys": "npx ts-node src/config/generateRSAKeyPair.ts",

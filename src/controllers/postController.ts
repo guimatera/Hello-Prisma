@@ -36,7 +36,7 @@ class PostController {
         });
       }
 
-      return res.status(200).json(Post);
+      return res.status(201).json(Post);
     } catch (error) {
       return res.status(500).json(error);
     }
@@ -44,7 +44,7 @@ class PostController {
 
   async findOne(req: Request, res: Response) {
     try {
-      const { postId } = req.body;
+      const { postId } = req.params;
 
       const Post = await prisma.post.findUnique({
         where: {
@@ -130,7 +130,7 @@ class PostController {
 
   async Destroy(req: Request, res: Response) {
     try {
-      const { postId } = req.body;
+      const { postId } = req.params;
 
       const Post = await prisma.post.delete({
         where: {

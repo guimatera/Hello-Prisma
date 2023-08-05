@@ -23,7 +23,7 @@ class UserController {
         }
       });
 
-      return res.status(200).json(User);
+      return res.status(201).json(User);
     } catch (error) {
       return res.status(500).json(error);
     }

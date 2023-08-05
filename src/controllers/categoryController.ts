@@ -9,14 +9,12 @@ class categoryController {
     try {
       validationResult(req).throw();
       const { Name } = req.body;
-
       const Category = await prisma.category.create({
         data: {
           name: Name
         }
       });
-
-      return res.status(200).json(Category);
+      return res.status(201).json(Category);
     } catch (error) {
       return res.status(500).json(error);
     }
@@ -24,7 +22,7 @@ class categoryController {
 
   async findOne(req: Request, res: Response) {
     try {
-      const { categoryId } = req.body;
+      const { categoryId } = req.params;
 
       const Category = await prisma.category.findUnique({
         where: {
@@ -83,7 +81,7 @@ class categoryController {
 
   async Destroy(req: Request, res: Response) {
     try {
-      const { categoryId } = req.body;
+      const { categoryId } = req.params;
 
       const Category = await prisma.category.delete({
         where: {
